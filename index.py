@@ -3,7 +3,7 @@ import requests
 import json
 import sched, time
 
-# ------------ CHANGE THIS ---------
+# ------------ CHANGE THIS ⬇️ ---------
 startingMoney = 100000
 moneyToSpend = 10000
 btcBought = 0
@@ -27,14 +27,14 @@ def sellBtc(currentBtcPrice):
   global startingMoney
   btcBought -= (moneyToSpend / currentBtcPrice)
   startingMoney += moneyToSpend
-# ------------ TO HERE ---------
+# ------------ TO HERE ⬆️ ---------
 
-# -------- DONT TOUCH THIS ---------
+# -------- DONT TOUCH THIS ⬇️ ---------
 s = sched.scheduler(time.time, time.sleep)
 def chronJob(sc):
-# -------- DONT TOUCH THIS ---------
+# -------- DONT TOUCH THIS ⬆️ ---------
 
-  # ------------ CHANGE THIS ---------
+  # ------------ CHANGE THIS ⬇️ ---------
     global lastBtcPrice
     print("Checking BTC price to USD and writing to file...")
     # do your stuff
@@ -62,9 +62,9 @@ def chronJob(sc):
     if (lastBtcPrice != currentBtcPrice):
       lastBtcPrice = currentBtcPrice
     print(btcBought, startingMoney)
-# ------------ TO HERE ---------
+# ------------ TO HERE ⬆️---------
 
-# -------- DONT TOUCH THIS ---------
+# -------- DONT TOUCH THIS ⬇️ ---------
     sc.enter(10, 1, chronJob, (sc,))
 s.enter(0, 1, chronJob, (s,))
 s.run()
