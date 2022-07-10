@@ -3,6 +3,7 @@ import requests
 import json
 import sched, time
 
+# ------------ CHANGE THIS ---------
 startingMoney = 100000
 moneyToSpend = 10000
 btcBought = 0
@@ -26,22 +27,27 @@ def sellBtc(currentBtcPrice):
   global startingMoney
   btcBought -= (moneyToSpend / currentBtcPrice)
   startingMoney += moneyToSpend
+# ------------ TO HERE ---------
 
+# -------- DONT TOUCH THIS ---------
 s = sched.scheduler(time.time, time.sleep)
 def chronJob(sc):
+# -------- DONT TOUCH THIS ---------
+
+  # ------------ CHANGE THIS ---------
     global lastBtcPrice
     print("Checking BTC price to USD and writing to file...")
     # do your stuff
     
     f = open("responseExample.json", "w")
 
+    # get current btc price 
     response = requests.get("https://poloniex.com/public?command=returnTicker")
-
     respJson = response.json()
     usdtToBtc = respJson["USDT_BTC"]
     currentBtcPrice = float(usdtToBtc['last'])
-    
 
+    # calculate change percentage
     priceVariance = percentage(lastBtcPrice, currentBtcPrice)
     print(priceVariance)
     if(priceVariance < -0.01):
@@ -56,8 +62,10 @@ def chronJob(sc):
     if (lastBtcPrice != currentBtcPrice):
       lastBtcPrice = currentBtcPrice
     print(btcBought, startingMoney)
-    sc.enter(10, 1, chronJob, (sc,))
+# ------------ TO HERE ---------
 
+# -------- DONT TOUCH THIS ---------
+    sc.enter(10, 1, chronJob, (sc,))
 s.enter(0, 1, chronJob, (s,))
 s.run()
 
